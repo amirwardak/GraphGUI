@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     Graph.cpp \
+    graphscene.cpp \
     main.cpp \
     mainwindow.cpp \
     vertexitem.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     Graph.h \
+    graphscene.h \
     mainwindow.h \
     vertexitem.h \
     edgeitem.h
