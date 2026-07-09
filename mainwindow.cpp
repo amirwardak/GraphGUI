@@ -148,8 +148,14 @@ void MainWindow::loadGraph(const QString& path)
     resetAction->setEnabled(false);
     animateAction->setEnabled(false);
 
-    if (!graph.loadFromFile(path.toStdString())) {
-        QMessageBox::warning(this, "Error", "Failed to open file:\n" + path);
+    try {
+        if (!graph.loadFromFile(path.toStdString())) {
+            QMessageBox::warning(this, "Error", "Failed to open file:\n" + path);
+            return;
+        }
+    } catch (const std::exception& e) {
+        QMessageBox::warning(this, "File Error",
+            "Invalid graph file:\n" + QString::fromStdString(e.what()));
         return;
     }
 
