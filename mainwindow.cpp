@@ -10,7 +10,7 @@
 #include <QMessageBox>
 #include <QToolBar>
 #include <QTimer>
-#include <QGraphicsEllipseItem>
+#include <QGraphicsRectItem>
 #include <QtMath>
 
 #include <fstream>
@@ -287,7 +287,7 @@ void MainWindow::onAnimateCar()
         carTimer = nullptr;
     }
 
-    carItem = new QGraphicsEllipseItem(-7, -7, 14, 14);
+    carItem = new QGraphicsRectItem(-10, -5, 20, 10);
     carItem->setBrush(QBrush(Qt::red));
     carItem->setPen(QPen(Qt::darkRed, 2));
     carItem->setZValue(100);
@@ -296,13 +296,17 @@ void MainWindow::onAnimateCar()
     carItem->setPos(startPos);
     scene->addItem(carItem);
 
-    carEdgeIndex = 0;
-    carProgress = 0.0;
-
     int v1 = pathResult[0];
     int v2 = pathResult[1];
     QPointF p1 = vertices[v1]->scenePos();
     QPointF p2 = vertices[v2]->scenePos();
+
+    double initAngle = qAtan2(p2.y() - p1.y(), p2.x() - p1.x()) * 180.0 / M_PI;
+    carItem->setRotation(initAngle);
+
+    carEdgeIndex = 0;
+    carProgress = 0.0;
+
     double edgeLen = qSqrt(QPointF::dotProduct(p2 - p1, p2 - p1));
     double speed = 150.0;
     carStepSize = (speed * 0.03) / edgeLen;
@@ -340,6 +344,9 @@ void MainWindow::advanceCar()
     int v2 = pathResult[carEdgeIndex + 1];
     QPointF p1 = vertices[v1]->scenePos();
     QPointF p2 = vertices[v2]->scenePos();
+
+    double angle = qAtan2(p2.y() - p1.y(), p2.x() - p1.x()) * 180.0 / M_PI;
+    carItem->setRotation(angle);
 
     carItem->setPos(p1 + carProgress * (p2 - p1));
 }

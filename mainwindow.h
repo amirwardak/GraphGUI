@@ -11,7 +11,7 @@ class VertexItem;
 class EdgeItem;
 class QAction;
 class QTimer;
-class QGraphicsEllipseItem;
+class QGraphicsRectItem;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -59,7 +59,7 @@ private:
     QAction* resetAction = nullptr;
     QAction* animateAction = nullptr;
 
-    QGraphicsEllipseItem* carItem = nullptr;
+    QGraphicsRectItem* carItem = nullptr;
     QTimer* carTimer = nullptr;
     int carEdgeIndex = 0;
     double carProgress = 0.0;
